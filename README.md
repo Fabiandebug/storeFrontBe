@@ -1,54 +1,132 @@
 # Storefront Backend Project
+### To run the project
 
-## Getting Started
+### Install the dependincies
+```
+npm install
+```
+### Start Docker
 
-This repo contains a basic Node and Express app to get you started in constructing an API. To get started, clone this repo and run `yarn` in your terminal at the project root.
+docker compose up
 
-## Required Technologies
-Your application must make use of the following libraries:
-- Postgres for the database
-- Node/Express for the application logic
-- dotenv from npm for managing environment variables
-- db-migrate from npm for migrations
-- jsonwebtoken from npm for working with JWTs
-- jasmine from npm for testing
+### Connect to container
+docker exec -it storefront-backend-postgres-1 bash
+### Connect to psql
+psql -U posgres
+### Create databases and user
+```
+CREATE DATABASE storefront;
+CREATE DATABASE storefront_test;
+CREATE USER storeuser WITH SUPERUSER PASSWORD 'password123';
 
-## Steps to Completion
+\c storefront
+GRANT ALL PRIVILEGES ON DATABASE storefront TO storeuser;
+\c storefront_test
+GRANT ALL PRIVILEGES ON DATABASE storefront_test TO storeuser;
+```
 
-### 1. Plan to Meet Requirements
+### Add .env file and add the following
+```
+POSTGRES_HOST="127.0.0.1"
+POSTGRES_DB="storefront"
+POSTGRES_TEST_DB="storefront_test"
+POSTGRES_USER="storeuser"
+POSTGRES_PASSWORD="password123"
+ENV="dev"
+BCRYPT_PASSWORD="my_super_secret_password"
+SALT_ROUNDS="10"
+TOKEN_SECRET="my_super_secret_tkn"
+```
 
-In this repo there is a `REQUIREMENTS.md` document which outlines what this API needs to supply for the frontend, as well as the agreed upon data shapes to be passed between front and backend. This is much like a document you might come across in real life when building or extending an API. 
+### Before test make a db migration with
+```
+db-migrate up
 
-Your first task is to read the requirements and update the document with the following:
-- Determine the RESTful route for each endpoint listed. Add the RESTful route and HTTP verb to the document so that the frontend developer can begin to build their fetch requests.    
-**Example**: A SHOW route: 'blogs/:id' [GET] 
+```
+### To pull down migrations
+dg-migrate down
+```
+```
+### npm-run Scripts
 
-- Design the Postgres database tables based off the data shape requirements. Add to the requirements document the database tables and columns being sure to mark foreign keys.   
-**Example**: You can format this however you like but these types of information should be provided
-Table: Books (id:varchar, title:varchar, author:varchar, published_year:varchar, publisher_id:string[foreign key to publishers table], pages:number)
+- npm run lint-eslit
+-  npm run prettier-prettier
+-  npm run test -run test 
+- npm run start - start server
+- npm run build - build solution
 
-**NOTE** It is important to remember that there might not be a one to one ratio between data shapes and database tables. Data shapes only outline the structure of objects being passed between frontend and API, the database may need multiple tables to store a single shape. 
 
-### 2.  DB Creation and Migrations
+### Project Dependencies
+"author": "Udacity",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "typescript": "^4.1.3"
+  
+  "devDependencies": 
+    "@types/bcrypt": "^5.0.0",
+    "@types/body-parser": "^1.19.2",
+    "@types/eslint": "^8.4.6",
+    "@types/express": "^4.17.15",
+    "@types/jasmine": "^3.6.3",
+    "@types/jsonwebtoken": "^8.5.9",
+    "@types/pg": "^7.14.7",
+    "@types/supertest": "^2.0.12",
+    "@typescript-eslint/eslint-plugin": "^5.49.0",
+    "@typescript-eslint/parser": "^5.37.0",
+    "bcrypt": "^5.1.0",
+    "body-parser": "^1.20.1",
+    "cross-env": "^7.0.3",
+    "db-migrate": "^0.11.13",
+    "db-migrate-pg": "^1.2.2",
+    "dotenv": "^16.0.2",
+    "eslint": "^8.23.1",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "jasmine": "^3.6.4",
+    "jasmine-spec-reporter": "^7.0.0",
+    "jasmine-ts": "^0.3.0",
+    "jsonwebtoken": "^9.0.0",
+    "nodemon": "^2.0.20",
+    "pg": "^8.8.0",
+    "prettier": "^2.7.1",
+    "save-dev": "^0.0.1-security",
+    "supertest": "^6.3.3",
+    "ts-node": "^10.9.1",
+    "ts-node-dev": "^2.0.0",
+    "tsc-watch": "^4.2.9"
+  
+### Project Enpoints
 
-Now that you have the structure of the databse outlined, it is time to create the database and migrations. Add the npm packages dotenv and db-migrate that we used in the course and setup your Postgres database. If you get stuck, you can always revisit the database lesson for a reminder. 
+[GET(/)] Home route
+[GET(/shop)]Shop route
 
-You must also ensure that any sensitive information is hashed with bcrypt. If any passwords are found in plain text in your application it will not pass.
+User
+[post('/shop/users')]
+[get('/shop/users)]
+[get('/shop/users/:id')]
+[post('/shop/users/authenticate')]
+[put('/shop/users/:id')]
+[delete('/shop/users/:id')]
 
-### 3. Models
+Products
+[post('/shop/products')]
+[get('/shop/products')]
+[get('/shop/products/:id)]
+[put('/shop/products/:id')]
+[delete('/shop/products/:id')]
 
-Create the models for each database table. The methods in each model should map to the endpoints in `REQUIREMENTS.md`. Remember that these models should all have test suites and mocks.
+Orders
+[post('/shop/orders')]
+[get('/shop/orders/active/:userId')]
+[put('/shop/orders/:id')]
+[delete('/shop/orders/:id')]
 
-### 4. Express Handlers
 
-Set up the Express handlers to route incoming requests to the correct model method. Make sure that the endpoints you create match up with the enpoints listed in `REQUIREMENTS.md`. Endpoints must have tests and be CORS enabled. 
+```
 
-### 5. JWTs
 
-Add JWT functionality as shown in the course. Make sure that JWTs are required for the routes listed in `REQUIUREMENTS.md`.
 
-### 6. QA and `README.md`
 
-Before submitting, make sure that your project is complete with a `README.md`. Your `README.md` must include instructions for setting up and running your project including how you setup, run, and connect to your database. 
 
-Before submitting your project, spin it up and test each endpoint. If each one responds with data that matches the data shapes from the `REQUIREMENTS.md`, it is ready for submission!
+
