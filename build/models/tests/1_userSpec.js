@@ -20,10 +20,10 @@ describe('User Model', () => {
     });
     it('create method should add a user', async () => {
         // @ts-ignore
-        const username = "kev";
-        const firstname = "joe";
-        const lastname = "kev";
-        const password_ = "password1";
+        const username = 'kev';
+        const firstname = 'joe';
+        const lastname = 'kev';
+        const password_ = 'password1';
         const result = await stUser.create(username, firstname, lastname, password_);
         expect(bcrypt_1.default.compareSync('password1' + pepper, result.password_)).toEqual(true);
         expect(result.firstname).toEqual('joe');

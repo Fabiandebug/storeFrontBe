@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const server_1 = __importDefault(require("../../server"));
 const supertest_1 = __importDefault(require("supertest"));
 const request = (0, supertest_1.default)(server_1.default);
-describe('Testing products endpoints responses', () => {
+describe('Test orders endpoints responses', () => {
     let token = '';
     // @ts-ignore
     const u = {
@@ -15,32 +15,16 @@ describe('Testing products endpoints responses', () => {
         lastname: 'kev',
         password_: 'password1',
     };
-    it('makes a user before testing products', async () => {
+    it('makes a user before testing ordes', async () => {
         const res = await request.post('/shop/users').send(u);
         token = res.body;
+        console.log('token in order:', token);
         expect(res.status).toBe(200);
     });
-    const p = {
-        // @ts-ignore
-        id: '',
-        pname: 'bread',
-        price: 100,
-        category: 'foods',
-    };
-    it('tests the [POST] /shop/products endpoint', async () => {
+    it('tests the [GET] /shop/orders/active endpoint', async () => {
         const res = await request
-            .post('/shop/products')
-            .send(p)
+            .get('/shop/orders/active/1')
             .set('Authorization', `Bearer ${token}`);
-        token = res.body;
-        expect(res.status).toBe(200);
-    });
-    it('tests the [GET] /shop/products endpoint', async () => {
-        const res = await request.get('/shop/products');
-        expect(res.status).toBe(200);
-    });
-    it('tests the [GET] /shop/users/:id endpoint', async () => {
-        const res = await request.get('/shop/products/1');
         expect(res.status).toBe(200);
     });
 });

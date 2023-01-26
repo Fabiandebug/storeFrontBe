@@ -5,9 +5,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const body_parser_1 = __importDefault(require("body-parser"));
-const user_router_1 = __importDefault(require("./routes/APIs/user.router"));
-const product_router_1 = __importDefault(require("./routes/APIs/product.router"));
-const order_router_1 = __importDefault(require("./routes/APIs/order.router"));
+const user_router_1 = __importDefault(require("./routes/user.router"));
+const product_router_1 = __importDefault(require("./routes/product.router"));
+const order_router_1 = __importDefault(require("./routes/order.router"));
 const app = (0, express_1.default)();
 const address = '0.0.0.0:3000';
 app.use(body_parser_1.default.json());

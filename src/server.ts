@@ -1,7 +1,7 @@
 import express, { Request, Response } from 'express';
 import bodyParser from 'body-parser';
-import userRouter from './routes/APIs/user.router';
-import productRouter from './routes/APIs/product.router';
+import userRouter from './routes/user.router';
+import productRouter from './routes/product.router';
 import orderRouter from './routes/order.router';
 
 const app: express.Application = express();

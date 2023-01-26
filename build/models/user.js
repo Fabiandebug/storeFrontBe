@@ -29,7 +29,12 @@ class StoreUser {
             const conn = await database_1.default.connect();
             const sql = `INSERT INTO Users (username,firstname, lastname, password_) VALUES ($1, $2, $3, $4) RETURNING *`;
             const hash = bcrypt_1.default.hashSync(password_ + pepper, parseInt(saltRounds));
-            const result = await conn.query(sql, [username, firstname, lastname, hash]);
+            const result = await conn.query(sql, [
+                username,
+                firstname,
+                lastname,
+                hash,
+            ]);
             const user = result.rows[0];
             conn.release();
             return user;

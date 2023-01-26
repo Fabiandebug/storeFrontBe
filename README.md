@@ -10,9 +10,9 @@ npm install
 docker compose up
 
 ### Connect to container
-docker exec -it storefront-backend-postgres-1 bash
+docker exec -it storefrontbe-postgres-1 bash
 ### Connect to psql
-psql -U posgres
+psql -U postgres
 ### Create databases and user
 ```
 CREATE DATABASE storefront;

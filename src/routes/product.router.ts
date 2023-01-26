@@ -1,6 +1,6 @@
 import express, { Request, Response } from 'express';
-import { product, StoreProduct } from './../../models/product';
-import verifyAuthToken from '../../middlewares/authentication';
+import { product, StoreProduct } from '../models/product';
+import verifyAuthToken from '../middlewares/authentication';
 
 const productRouter = express.Router();
 
