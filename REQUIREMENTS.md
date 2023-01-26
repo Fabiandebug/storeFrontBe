@@ -40,3 +40,23 @@ These are the notes from a meeting with the frontend developer that describe wha
 - user_id
 - status of order (active or complete)
 
+
+
+### Tables
+ TABLE Users(
+    id serial primary key,
+    username varchar(100) not null, 
+    firstName varchar(100) not null,
+    lastName varchar(100) not null, 
+    password_ varchar(100) not null
+
+TABLE StoreOrder(
+    id SERIAL PRIMARY KEY, 
+    userid integer not null, 
+    ostatus varchar(50) not null default 'active'
+
+TABLE Product(
+    id SERIAL PRIMARY KEY,
+    pname varchar(100) not null, 
+    price decimal(10,2) not null, 
+    category varchar(100)
